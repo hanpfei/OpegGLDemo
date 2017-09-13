@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.1"
+    defaultConfig {
+        applicationId "com.cloudgame.demo"
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+
+    //签名配置
+    signingConfigs {
+        release {
+        }
+
+        debug {
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false //开启混淆
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            minifyEnabled true //开启混淆
+            shrinkResources false //删除无效的resources(需要与minifyEnabled同时设定)
+            debuggable true
+            jniDebuggable false
+            proguardFile('proguard-rules.pro')
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.volley:volley:1.0.0'
+    compile 'com.alibaba:fastjson:1.2.0'
+    compile 'ly.count.android:sdk:16.06.01'
+    compile(name: 'saas-sdk-migu-rel', ext: 'aar')
+}
+
